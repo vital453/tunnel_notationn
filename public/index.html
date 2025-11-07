@@ -1,0 +1,984 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Évaluez le Prestige Académique au Bénin - Actiiva</title>
+    
+    <style>
+        /* --- Importations --- */
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display-swap');
+        @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css');
+
+        /* --- Palette de Couleurs ACTIIVA --- */
+        :root {
+            --color-blue: #005a9c;
+            --color-orange: #f39c12;
+            --color-green: #3c9a4c;
+            --color-charcoal: #3d3d3d;
+            --primary-teal1: #ddcd3e;
+            --primary-teal: #008080;
+            
+            --primary-gradient: linear-gradient(45deg, var(--primary-teal), var(--color-blue));
+            --grey-color: #7f8c8d;
+            --light-grey-color: #f8f9fa;
+            --border-color: #e9ecef;
+            --white-color: #ffffff;
+            --shadow: 0 8px 25px rgba(0,0,0,0.06);
+            --shadow-hover: 0 12px 35px rgba(0,0,0,0.1);
+        }
+
+        /* --- Style de surlignage de texte --- */
+        ::selection {
+            background-color: var(--color-orange);
+            color: var(--white-color);
+        }
+
+        /* --- Styles Généraux --- */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: var(--color-charcoal);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            padding: 40px 20px;
+            
+            background-image: url('https://actiiva.org/wp-content/uploads/2025/08/photo-11-1.jpg');
+            background-size: cover;
+            background-position: center center;
+            background-attachment: fixed;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: -1;
+        }
+
+        /* --- Conteneur principal --- */
+        .tunnel-container {
+            background-color: var(--white-color);
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+            width: 100%;
+            max-width: 800px;
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        /* --- Styles des Étapes --- */
+        .step { display: none; animation: fadeIn 0.6s ease-in-out; }
+        .step.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+
+        header h1 { font-size: 32px; margin-bottom: 10px; }
+        header p { color: var(--grey-color); margin-bottom: 40px; max-width: 600px; margin-left: auto; margin-right: auto; }
+        /* Supprime la marge inférieure du header lorsqu'il est à l'intérieur de .header-with-images */
+        .header-with-images header p { margin-bottom: 0; }
+        .distinctions-presentation { margin-bottom: 40px; text-align: left; }
+        .distinctions-presentation h2 { text-align: center; font-size: 24px; margin-bottom: 30px; color: var(--color-charcoal); }
+        .distinctions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            justify-items: center; /* Centre les éléments de la grille horizontalement */
+            align-items: stretch; /* Assure que les éléments de la grille ont la même hauteur */
+        }
+        
+        .distinction-card {
+            background-color: var(--light-grey-color);
+            padding: 25px;
+            border-radius: 12px;
+            text-align: center;
+            border: 2px solid transparent;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+            display: flex; /* Utilise flexbox pour le contenu interne */
+            flex-direction: column; /* Organise le contenu en colonne */
+            justify-content: space-between; /* Distribue l'espace entre les éléments */
+        }
+        .distinction-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-hover);
+        }
+        .distinction-card:nth-child(5n+1) { background-color: #e0f2f7; border-color: var(--color-blue); }
+        .distinction-card:nth-child(5n+2) { background-color: #e6f7e0; border-color: var(--color-green); }
+        .distinction-card:nth-child(5n+3) { background-color: #fdf3e0; border-color: var(--color-orange); }
+        .distinction-card:nth-child(5n+4) { background-color: #f7f5e0; border-color: var(--primary-teal1); }
+        .distinction-card:nth-child(5n+5) { background-color: #e0f2f7; border-color: var(--color-blue); }
+
+        .distinction-card:hover:nth-child(5n+1) { border-color: var(--color-blue); }
+        .distinction-card:hover:nth-child(5n+2) { border-color: var(--color-green); }
+        .distinction-card:hover:nth-child(5n+3) { border-color: var(--color-orange); }
+        .distinction-card:hover:nth-child(5n+4) { border-color: var(--primary-teal1); }
+        .distinction-card:hover:nth-child(5n+5) { border-color: var(--color-blue); }
+
+        .distinction-card .icon-wrapper {
+            width: 70px; height: 70px; margin: 0 auto 20px auto; border-radius: 12px; background-color: var(--white-color);
+            display: flex; align-items: center; justify-content: center; font-size: 32px; color: var(--primary-teal); transition: transform 0.3s ease;
+        }
+        .distinction-card:hover .icon-wrapper { transform: scale(1.1); }
+        .distinction-card h3 { font-size: 18px; margin-bottom: 10px; color: var(--color-charcoal); }
+        .distinction-card p { font-size: 14px; color: var(--grey-color); line-height: 1.6; }
+        
+        .section-divider { border: 0; height: 1px; background: var(--border-color); margin: 50px auto; }
+        .selection-title { font-size: 24px; text-align: center; margin-bottom: 30px; }
+
+        .tabs { display: flex; border-bottom: 1px solid var(--border-color); margin-bottom: 30px; }
+        .tab-btn { padding: 15px 20px; border: none; background: none; cursor: pointer; font-size: 16px; font-weight: 600; color: var(--grey-color); position: relative; transition: color 0.3s ease; }
+        .tab-btn.active { color: var(--primary-teal); }
+        .tab-btn.active::after { content: ''; position: absolute; bottom: -1px; left: 0; width: 100%; height: 3px; background: var(--primary-teal); }
+
+        .institutions-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; max-height: 400px; overflow-y: auto; padding: 10px; }
+        .institution-card { border: 2px solid var(--border-color); border-radius: 12px; padding: 20px; cursor: pointer; transition: all 0.3s ease; text-align: center; position: relative; overflow: hidden; background: var(--white-color); }
+        .institution-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-hover); border-color: var(--primary-teal);}
+        #add-other-card { border-style: dashed; }
+        #add-other-card:hover { border-color: var(--primary-teal); color: var(--primary-teal); }
+        
+        .logo-wrapper {
+            height: 60px;
+            width: 100%;
+            margin: 0 auto 15px auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .logo-wrapper img {
+            max-height: 100%;
+            max-width: 100%;
+            object-fit: contain;
+        }
+        .logo-wrapper .initials-placeholder {
+            width: 60px; height: 60px; border-radius: 50%; background-color: var(--light-grey-color); color: var(--primary-teal);
+            display: flex; align-items: center; justify-content: center; font-size: 24px; font-weight: 600;
+        }
+        #add-other-card .logo-wrapper .initials-placeholder { background: transparent; }
+
+        .institution-card h3 { margin: 0; font-size: 14px; font-weight: 500; }
+        .institution-tag { position: absolute; top: 10px; right: 10px; font-size: 10px; font-weight: 600; padding: 3px 8px; border-radius: 12px; color: var(--white-color); text-transform: uppercase; }
+        .tag-université { background-color: var(--primary-teal); }
+        .tag-centre { background-color: var(--color-blue); }
+        
+        .stars { display: flex; flex-direction: row-reverse; }
+        .stars span { font-size: 28px; color: var(--border-color); cursor: pointer; transition: all 0.2s ease; }
+        .stars span:hover { transform: scale(1.3); }
+        .stars span.rated, .stars:hover span:hover, .stars:hover span:hover ~ span { color: var(--color-orange); text-shadow: 0 0 5px rgba(243, 156, 18, 0.5); }
+        .btn { border: none; padding: 14px 28px; font-size: 16px; font-weight: 600; border-radius: 8px; cursor: pointer; transition: all 0.3s ease; }
+        .btn-primary { background-image: var(--primary-gradient); color: white; border: none; }
+        .btn-primary:hover { transform: scale(1.05); box-shadow: 0 4px 20px rgba(0, 128, 128, 0.3); }
+        .search-bar { margin-bottom: 30px; position: relative; }
+        #search-input { width: 100%; padding: 15px 20px 15px 45px; border-radius: 8px; border: 1px solid var(--border-color); font-size: 16px; }
+        .search-bar i { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: var(--grey-color); }
+        #rating-header { text-align: center; }
+        #rating-header #rating-for-title { font-size: 24px; font-weight: 600; color: var(--color-charcoal); }
+        #rating-header p { color: var(--grey-color); margin-bottom: 20px;}
+        .criteria-list { text-align: left; }
+        .criterion { display: flex; justify-content: space-between; align-items: center; padding: 18px 0; border-bottom: 1px solid var(--border-color); }
+        .criterion:last-of-type { border-bottom: none; }
+        .criterion-label { display: flex; align-items: center; gap: 10px; font-weight: 500;}
+        .info-icon { color: var(--grey-color); cursor: pointer; font-size: 14px; transition: color 0.2s; }
+        .actions { display: flex; justify-content: space-between; margin-top: 40px; }
+        .btn-secondary { background-color: var(--border-color); color: var(--color-charcoal); }
+        .dynamic-score-box { background-color: var(--white-color); border: 1px solid var(--border-color); padding: 20px; border-radius: 12px; margin: 30px auto; max-width: 450px; }
+        .dynamic-score-box p { font-size: 18px; margin-bottom: 5px; }
+        .dynamic-score-box .score { font-size: 24px; font-weight: 700; color: var(--color-charcoal); }
+        .dynamic-score-box .vote-count { font-size: 14px; color: var(--grey-color); margin-top: 10px; }
+        #criteria-scores-list {
+            margin-top: 25px;
+            padding: 0;
+            list-style: none;
+            text-align: left;
+        }
+        #criteria-scores-list li {
+            padding: 10px 0;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 15px;
+            color: var(--color-charcoal);
+        }
+        #criteria-scores-list li:last-child {
+            border-bottom: none;
+        }
+        #criteria-scores-list li .score {
+            font-weight: 600;
+            color: var(--primary-teal);
+        }
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); display: flex; justify-content: center; align-items: center; opacity: 0; visibility: hidden; transition: all 0.3s ease; z-index: 1000; }
+        .modal-overlay.active { opacity: 1; visibility: visible; }
+        .modal-content { background: var(--white-color); padding: 30px; border-radius: 12px; width: 90%; max-width: 500px; transform: scale(0.9); transition: transform 0.3s ease; text-align: left; }
+        .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+        .modal-header h2 { font-size: 22px; }
+        .modal-body p { line-height: 1.7; white-space: pre-wrap; }
+        .modal-close-btn { background: none; border: none; font-size: 24px; cursor: pointer; color: var(--grey-color); }
+        .form-group { margin-bottom: 15px; }
+        .form-group label { display: block; font-weight: 600; margin-bottom: 5px; }
+        .form-group input { width: 100%; padding: 12px; border: 1px solid var(--border-color); border-radius: 8px; font-size: 16px; }
+        .radio-group { display: flex; gap: 20px; margin-top: 10px; }
+        .modal-actions { margin-top: 25px; display: flex; justify-content: flex-end; gap: 15px; }
+
+        .partners-section {
+            width: 100%;
+            max-width: 800px;
+            text-align: center;
+            background: var(--white-color);
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+        }
+        .partners-section h2 { font-size: 22px; color: var(--color-charcoal); margin-bottom: 30px; }
+        .logos-carousel { overflow: hidden; position: relative; white-space: nowrap; }
+        .logos-carousel:hover .logos-slide { animation-play-state: paused; }
+        .logos-carousel:before, .logos-carousel:after {
+            content: ""; position: absolute; top: 0; width: 100px; height: 100%; z-index: 2;
+        }
+        .logos-carousel:before { left: 0; background: linear-gradient(to left, rgba(255, 255, 255, 0), var(--white-color)); }
+        .logos-carousel:after { right: 0; background: linear-gradient(to right, rgba(255, 255, 255, 0), var(--white-color)); }
+        .logos-slide { display: inline-block; animation: 35s slide infinite linear; }
+        .logos-slide img { height: 50px; margin: 0 40px; filter: grayscale(100%); opacity: 0.7; transition: filter 0.3s ease, opacity 0.3s ease; }
+        .logos-carousel:hover .logos-slide img { filter: grayscale(0%); opacity: 1; }
+        @keyframes slide { from { transform: translateX(0%); } to { transform: translateX(-100%); }}
+
+        /* --- Styles du Carrousel du Header --- */
+        .carousel-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px; /* Ajustez selon vos préférences */
+            margin: 0 auto 20px auto;
+            overflow: hidden;
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+        }
+
+        .carousel-slide {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .carousel-slide img {
+            width: 100%;
+            height: 300px; /* Hauteur fixe pour les images du carrousel */
+            object-fit: cover;
+            flex-shrink: 0;
+            border-radius: 16px;
+        }
+
+        .carousel-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            cursor: pointer;
+            font-size: 24px;
+            z-index: 10;
+            border-radius: 8px;
+        }
+
+        .carousel-btn.prev {
+            left: 10px;
+        }
+
+        .carousel-btn.next {
+            right: 10px;
+        }
+
+        .carousel-dots {
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 8px;
+            z-index: 10;
+        }
+
+        .carousel-dot {
+            width: 10px;
+            height: 10px;
+            background-color: rgba(255, 255, 255, 0.5);
+            border-radius: 50%;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .carousel-dot.active {
+            background-color: var(--white-color);
+        }
+
+        @media (max-width: 768px) {
+            .carousel-slide img {
+                height: 200px;
+            }
+            .carousel-btn {
+                padding: 8px 12px;
+                font-size: 20px;
+            }
+
+            /* Ajustements généraux pour les petits écrans */
+            body {
+                padding: 20px 10px;
+            }
+
+            .tunnel-container {
+                padding: 25px 15px;
+                margin-bottom: 30px;
+            }
+
+            header h1 {
+                font-size: 28px;
+            }
+
+            header p {
+                font-size: 14px;
+                margin-bottom: 20px;
+            }
+
+            .distinctions-presentation h2, .selection-title {
+                font-size: 20px;
+                margin-bottom: 20px;
+            }
+
+            .distinctions-grid {
+                grid-template-columns: 1fr; /* Une seule colonne pour les distinctions */
+                gap: 15px;
+            }
+
+            .distinction-card {
+                padding: 20px;
+            }
+
+            .distinction-card .icon-wrapper {
+                width: 60px;
+                height: 60px;
+                font-size: 28px;
+                margin-bottom: 15px;
+            }
+
+            .distinction-card h3 {
+                font-size: 16px;
+            }
+
+            .distinction-card p {
+                font-size: 13px;
+            }
+
+            .tabs {
+                flex-wrap: wrap;
+                justify-content: center;
+                margin-bottom: 20px;
+            }
+
+            .tab-btn {
+                padding: 10px 15px;
+                font-size: 14px;
+                margin: 5px;
+            }
+
+            .search-bar {
+                margin-bottom: 20px;
+            }
+
+            #search-input {
+                padding: 12px 15px 12px 40px;
+                font-size: 14px;
+            }
+
+            .institutions-grid {
+                grid-template-columns: 1fr; /* Une seule colonne pour les institutions */
+                max-height: 300px;
+            }
+
+            .institution-card {
+                padding: 15px;
+            }
+
+            .institution-card h3 {
+                font-size: 13px;
+            }
+
+            .logo-wrapper {
+                height: 50px;
+                margin-bottom: 10px;
+            }
+
+            .logo-wrapper .initials-placeholder {
+                width: 50px;
+                height: 50px;
+                font-size: 20px;
+            }
+
+            .criterion {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+                padding: 15px 0;
+            }
+
+            .stars span {
+                font-size: 24px;
+            }
+
+            .actions {
+                flex-direction: column;
+                gap: 15px;
+                margin-top: 30px;
+            }
+
+            .btn {
+                width: 100%;
+                padding: 12px 20px;
+                font-size: 15px;
+            }
+
+            .dynamic-score-box {
+                padding: 15px;
+                margin: 20px auto;
+            }
+
+            .dynamic-score-box p {
+                font-size: 16px;
+            }
+
+            .dynamic-score-box .score {
+                font-size: 20px;
+            }
+
+            .dynamic-score-box .vote-count {
+                font-size: 13px;
+            }
+
+            .partners-section {
+                padding: 30px 15px;
+            }
+
+            .partners-section h2 {
+                font-size: 20px;
+                margin-bottom: 20px;
+            }
+
+            .logos-slide img {
+                height: 40px;
+                margin: 0 20px;
+            }
+
+            .modal-content {
+                padding: 20px;
+                width: 95%;
+            }
+
+            .modal-header h2 {
+                font-size: 20px;
+            }
+
+            .form-group input {
+                padding: 10px;
+                font-size: 14px;
+            }
+
+            .radio-group {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .modal-actions {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="tunnel-container">
+        <div id="step-1" class="step active">
+            <div class="carousel-container">
+                <div class="carousel-slide">
+                    <img src="/AEA_logo.png" alt="Image 1">
+                    <img src="/(Fond_Transp)_ACTiiVA_logo.png" alt="Image 2">
+                    <img src="/impactia.jpeg" alt="Image 3">
+                </div>
+                <button class="carousel-btn prev">&#10094;</button>
+                <button class="carousel-btn next">&#10095;</button>
+                <div class="carousel-dots"></div>
+            </div>
+            <header>
+                <!-- <h1>Academy Excellence Awards</h1> -->
+                <p>Votre voix contribue à dessiner une carte de l'excellence éducative au Bénin. Découvrez sur quels critères repose notre évaluation.</p>
+            </header>
+            <section class="distinctions-presentation">
+                <h2>Nos Critères de Prestige</h2>
+                <p style="margin-bottom: 30px;">Parce que l’excellence ne s’improvise pas, chaque université de prestige se distingue par des valeurs qui inspirent confiance, innovation et impact.
+Découvrez ci-dessous les 5 piliers qui définissent une<strong> Université de Prestige</strong> selon les <strong> Académie Excellence Awards</strong>
+</p>
+                <div class="distinctions-grid">
+                    <div class="distinction-card">
+                        <div class="icon-wrapper"><i class="fa-solid fa-award"></i></div>
+                        <h3>Réputation institutionnelle </h3>
+                        <p>La crédibilité et la reconnaissance académique bâties sur la constance et la qualité.</p>
+                    </div>
+                    <div class="distinction-card">
+                        <div class="icon-wrapper"><i class="fa-solid fa-sitemap"></i></div>
+                        <h3>Qualité de l’offre de formation </h3>
+                        <p>La diversité et la pertinence des programmes face aux réalités du marché.</p>
+                    </div>
+                    <div class="distinction-card">
+                        <div class="icon-wrapper"><i class="fa-solid fa-landmark"></i></div>
+                        <h3>Gouvernance et leadership </h3>
+                        <p>Une direction visionnaire, rigoureuse et orientée vers la performance.</p>
+                    </div>
+                    <div class="distinction-card">
+                        <div class="icon-wrapper"><i class="fa-solid fa-globe"></i></div>
+                        <h3>Impact sociétal et employabilité</h3>
+                        <p>Des formations qui transforment les vies et créent des opportunités.</p>
+                    </div>
+                     <div class="distinction-card">
+                        <div class="icon-wrapper"><i class="fa-solid fa-graduation-cap"></i></div>
+                        <h3>Expérience étudiante</h3>
+                        <p>Un cadre de vie stimulant où les talents s’épanouissent et se révèlent.</p>
+                    </div>
+                </div>
+            </section>
+            <hr class="section-divider">
+            <main>
+                <h2 class="selection-title">Faites briller votre université !</h2>
+                <p class="selection-title">Sélectionnez ci-dessous l’établissement que vous estimez représenter <strong>le mieux l’excellence académique et institutionnelle</strong>  au Bénin.</p>
+                <div class="tabs">
+                    <button class="tab-btn active" data-type="Université">Universités</button>
+                    <button class="tab-btn" data-type="Centre de Formation">Centres de Formation</button>
+                </div>
+                <div class="search-bar">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="text" id="search-input" placeholder="Rechercher une institution...">
+                </div>
+                <div class="institutions-grid"></div>
+            </main>
+        </div>
+        <div id="step-2" class="step">
+            <header id="rating-header">
+                <p>Attribuez une note à chaque critère selon votre appréciation. Votre évaluation contribue à la reconnaissance des universités les plus inspirantes du pays.</p>
+                <h2 id="rating-for-title"></h2>
+            </header>
+            <main>
+                <form id="rating-form">
+                    <div class="criteria-list"></div>
+                    <div class="actions">
+                        <button type="button" id="back-btn" class="btn btn-secondary">Changer d'institution</button>
+                        <button type="submit" class="btn btn-primary">Soumettre mon évaluation</button>
+                    </div>
+                </form>
+            </main>
+        </div>
+        <div id="step-3" class="step">
+             <i class="fa-solid fa-circle-check" style="font-size: 60px; color: var(--color-green); margin-bottom: 20px;"></i>
+            <h1>Merci pour votre participation !</h1>
+            <p>Vous venez d’évaluer <strong class="dynamic-uni-name">[Nom de l'université]</strong> selon les critères de prestige des <strong>Académie Excellence Awards.</strong></p>
+            <p>Votre contribution compte ! Ensemble, nous révélons les institutions qui font rayonner l’éducation béninoise.</p>
+            <div class="dynamic-score-box">
+                <p>Score actuel de <strong class="dynamic-uni-name">[Nom de l'université]</strong> :</p>
+                <div id="dynamic-score" class="score">0,0 / 100</div>
+                <div id="vote-count-display" class="vote-count"></div>
+                <small>(Ce score évolue en fonction des votes du public et des évaluations validées.)</small>
+                <ul id="criteria-scores-list" style="text-align: left; margin-top: 20px; list-style: none; padding: 0;"></ul>
+            </div>
+        </div>
+    </div>
+    
+    <section class="partners-section">
+        <h2>Nos Partenaires de l'Excellence</h2>
+        <div class="logos-carousel">
+            <div class="logos-slide">
+                <img src="/aif.png" alt="Google">
+                <img src="/agefic.png" alt="Facebook">
+                <img src="/(Fond_Transp)_ACTiiVA_logo.png" alt="Samsung">
+                <img src="/impactia.jpeg" alt="Amazon">
+                <img src="/aif.png" alt="Google">
+                <img src="/agefic.png" alt="Facebook">
+                <img src="/(Fond_Transp)_ACTiiVA_logo.png" alt="Samsung">
+                <img src="/impactia.jpeg" alt="Amazon">
+            </div>
+        </div>
+    </section>
+
+    <div id="info-modal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modal-title"></h2>
+                <button class="modal-close-btn" data-modal="info-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p id="modal-description"></p>
+            </div>
+        </div>
+    </div>
+    <div id="add-institution-modal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Ajouter une institution</h2>
+                <button class="modal-close-btn" data-modal="add-institution-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="add-institution-form">
+                    <div class="form-group">
+                        <label for="new-institution-name">Nom de l'établissement *</label>
+                        <input type="text" id="new-institution-name" placeholder="Ex: Université de Cotonou" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="new-institution-email">E-mail de contact *</label>
+                        <input type="email" id="new-institution-email" placeholder="contact@exemple.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Type d'établissement *</label>
+                        <div class="radio-group">
+                            <label><input type="radio" name="new-institution-type" value="Université" checked> Université</label>
+                            <label><input type="radio" name="new-institution-type" value="Centre de Formation"> Centre de Formation</label>
+                        </div>
+                    </div>
+                    <div class="modal-actions">
+                        <button type="button" class="btn btn-secondary modal-close-btn" data-modal="add-institution-modal">Annuler</button>
+                        <button type="submit" class="btn btn-primary">Continuer</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const institutions = [
+            // Universités
+            { name: "Centre International de Formation à l'Expertise Comptable (CIFEC)", type: "Université", logo: "/CIFEC-300x300.png" },
+            { name: "Les Cours Sonou", type: "Université", logo: "/cour_sonou.png" },
+            { name: "Ecole Supérieure d'Administration et d'Economie (ESAE)", type: "Université", logo: "/ESAE-768x480.png" },
+            { name: "Ecole Supérieure de Génie Civil Verechaguine A.K. (ESGC)", type: "Université", logo: "/esgcvak.png" },
+            { name: "Ecole Supérieure de Gestion d'Informatique et des Sciences (ESGIS)", type: "Université", logo: "/ESGIS.png.png" },
+            { name: "Ecole Supérieure des Métiers des Energies Renouvelables (ESMER)", type: "Université", logo: "/ESMER-768x768.jpg.png" },
+            { name: "Ecole Supérieure des Sciences Avancées et de Management (ESTAM)", type: "Université", logo: "/estam.jpg.png" },
+            { name: "Ecole Supérieure Sainte Félicité (ESSF)", type: "Université", logo: "/sainte_felicité.png" },
+            { name: "Esep Le Berger", type: "Université", logo: "/ESEP-Le-berger.jpg.png" },
+            { name: "Haute Ecole de Commerce et de Management (HECM)", type: "Université", logo: "/logo-hecm.png" },
+            { name: "Institut Régional du Génie Industriel (IRGIB AFRICA UNIVERSITE)", type: "Université", logo: "/IRGIB-Africa-Bénin.png" },
+            { name: "Institut Supérieur de Management Adonaï (ISM ADONAÏ)", type: "Université", logo: "/ISM-Adonai-fede-federation-europeenne-des-ecoles.png" },
+            { name: "Institut Supérieur des Métiers de l'Audiovisuel (ISMA)", type: "Université", logo: "/isma.png" },
+            { name: "PIGIER BENIN", type: "Université", logo: "/pigier-benin-cotonou-formation-afrique.png" },
+            { name: "Université Africaine de Technologie et de Management (UATM GASA)", type: "Université", logo: "/gasa_formation.jpg" },
+            { name: "Université Catholique d'Afrique de l'Ouest (UCAO)", type: "Université", logo: "/ucao.png" },
+            { name: "Université des Sciences et Technologies du Bénin (USTB)", type: "Université", logo: "/Université-des-Sciences-des-Techniques-et-des-Technologies-de-Bamako-USTTB.png" },
+            { name: "Université Polytechnique Internationale Obiang Nguema Mbasogo (UPI ONM)", type: "Université", logo: "/upi_onm.jpg" },
+            { name: "Université Protestante de l'Afrique de l'Ouest (UPAO)", type: "Université", logo: "/upao.jpg" },
+            // Centres de Formation
+            { name: "Centre de Formation Professionnelle Rossignol (CFP Rossignol)", type: "Centre de Formation", logo: "/logo.jpg" },
+            { name: "CEFES Bénin", type: "Centre de Formation", logo: "/cefes.jpg" },
+            { name: "Centre de Formation Professionnelle Le Savoir-Faire", type: "Centre de Formation", logo: "/logo_savoir_faire.png" },
+            { name: "Centre de Formation Liweitari (CFL)", type: "Centre de Formation", logo: "/logo_cfl.png" },
+            { name: "Centre de Formation Professionnelle des Arts et Métiers (CFPAM)", type: "Centre de Formation", logo: "/cfpam.jpg" },
+            { name: "Centre de Formation aux Métiers de l'Industrie (CFMI)", type: "Centre de Formation", logo: "/cfmi.jpg" },
+            { name: "École Internationale des Métiers Agricoles (EIMA)", type: "Centre de Formation", logo: "/emma.jpg" },
+            { name: "École Supérieure Polytechnique (ESP)", type: "Centre de Formation", logo: "/logo_esp.png" },
+            { name: "POLYTECH ADA (École Polytechnique des Génies)", type: "Centre de Formation", logo: "/epg.jpg" }
+        ];
+        const criteria = {
+            reputation: { label: "Réputation institutionnelle et crédibilité académique", description: `Reconnaissance officielle (autorisation et accréditations nationales/internationales).\nParcours historique et continuité des activités éducatives.\nNotoriété auprès des étudiants, parents et employeurs.\nQualité perçue des diplômés sur le marché du travail.\nObjectif : identifier les universités qui inspirent confiance et respect par la constance de leur excellence.` },
+            training_offer: { label: "Qualité et diversité de l’offre de formation", description: `Nombre et variété des filières reconnues.\nActualisation régulière des programmes selon les besoins du marché.\nIntégration des nouvelles technologies et pédagogies innovantes.\nPrésence de formations professionnalisantes ou à fort impact social.\nObjectif : valoriser les institutions qui offrent une formation pertinente, diversifiée et adaptée à la réalité économique.` },
+            governance: { label: "Gouvernance, leadership et stratégie institutionnelle", description: `Vision et mission clairement définies.\nLeadership du promoteur et de l’équipe administrative.\nTransparence dans la gestion académique et financière.\nCapacité d’innovation, d’adaptation et de pilotage stratégique.\nObjectif : distinguer les établissements dirigés avec rigueur, cohérence et ambition éducative.` },
+            societal_impact: { label: "Contribution à la recherche, à l’employabilité et à l’impact sociétal", description: `Partenariats universitaires, institutionnels ou industriels.\nProjets de recherche, publications ou innovations pédagogiques.\nInitiatives favorisant l’insertion professionnelle des diplômés.\nEngagement social, environnemental ou communautaire.\nObjectif : récompenser les universités qui forment non seulement des diplômés, mais aussi des acteurs de développement.` },
+            student_experience: { label: "Attractivité et expérience étudiante", description: `Dynamisme du campus, vie associative et accompagnement des étudiants.\nPolitique d’accueil, de bourses et d’inclusion.\nCommunication institutionnelle et image publique.\nSatisfaction des étudiants et alumni.` }
+        };
+        const steps = document.querySelectorAll('.step');
+        const tabBtns = document.querySelectorAll('.tab-btn');
+        const searchInput = document.getElementById('search-input');
+        const institutionsGrid = document.querySelector('.institutions-grid');
+        const ratingTitle = document.getElementById('rating-for-title');
+        const criteriaList = document.querySelector('.criteria-list');
+        const ratingForm = document.getElementById('rating-form');
+        const backBtn = document.getElementById('back-btn');
+        const infoModal = document.getElementById('info-modal');
+        const addInstitutionModal = document.getElementById('add-institution-modal');
+        const addInstitutionForm = document.getElementById('add-institution-form');
+        const dynamicScoreElement = document.getElementById('dynamic-score');
+        const dynamicUniNameSpans = document.querySelectorAll('.dynamic-uni-name');
+        const voteCountDisplay = document.getElementById('vote-count-display');
+        const STORAGE_KEY = 'universityScores_actiiva';
+        let activeTab = 'Université';
+        let selectedInstitution = null;
+        let ratings = {};
+        
+        const initializeScores = () => {
+            if (sessionStorage.getItem(STORAGE_KEY)) { return; }
+            const initialScores = {};
+            const allInstitutions = institutions.map(inst => inst.name);
+            allInstitutions.forEach(name => {
+                const fakeVoteCount = Math.floor(Math.random() * (200 - 50) + 50);
+                const fakeTotalScore = ((Math.random() * (4.2 - 2.5) + 2.5) * 20) * fakeVoteCount; // Convertir la note sur 5 en note sur 100 avant de calculer le total
+                initialScores[name] = { totalScore: fakeTotalScore, voteCount: fakeVoteCount };
+            });
+            sessionStorage.setItem(STORAGE_KEY, JSON.stringify(initialScores));
+        };
+
+        const goToStep = (stepNumber) => {
+            steps.forEach(step => step.classList.remove('active'));
+            document.getElementById(`step-${stepNumber}`).classList.add('active');
+            if (stepNumber === 3) {
+                displayResults();
+            }
+        };
+        
+        const renderInstitutions = (type, filter = '') => {
+            institutionsGrid.innerHTML = '';
+            const filtered = institutions.filter(inst => inst.type === type).filter(inst => inst.name.toLowerCase().includes(filter.toLowerCase()));
+            filtered.forEach(inst => {
+                const card = document.createElement('div');
+                card.className = 'institution-card';
+                card.dataset.name = inst.name;
+                const tagClass = inst.type === 'Université' ? 'tag-université' : 'tag-centre';
+                const tagName = inst.type === 'Université' ? 'Université' : 'Centre';
+                
+                let logoContent;
+                if (inst.logo) {
+                    logoContent = `<img src="${inst.logo}" alt="Logo de ${inst.name}">`;
+                } else {
+                    const initials = inst.name.match(/\b(\w)/g).join('').substring(0, 2).toUpperCase();
+                    logoContent = `<div class="initials-placeholder">${initials}</div>`;
+                }
+
+                card.innerHTML = `
+                    <div class="institution-tag ${tagClass}">${tagName}</div>
+                    <div class="logo-wrapper">${logoContent}</div>
+                    <h3>${inst.name}</h3>
+                `;
+                card.addEventListener('click', () => {
+                    selectedInstitution = inst;
+                    ratingTitle.textContent = inst.name;
+                    dynamicUniNameSpans.forEach(span => span.textContent = inst.name);
+                    goToStep(2);
+                });
+                institutionsGrid.appendChild(card);
+            });
+            const otherCardHTML = `<div class="institution-card" id="add-other-card"><div class="logo-wrapper"><div class="initials-placeholder"><i class="fa-solid fa-plus"></i></div></div><h3>Ajouter la vôtre</h3></div>`;
+            institutionsGrid.insertAdjacentHTML('beforeend', otherCardHTML);
+            document.getElementById('add-other-card').addEventListener('click', () => { addInstitutionModal.classList.add('active'); });
+        };
+        
+        const renderCriteria = () => {
+            criteriaList.innerHTML = '';
+            for (const key in criteria) {
+                const criterion = criteria[key];
+                const div = document.createElement('div');
+                div.className = 'criterion';
+                div.innerHTML = `<div class="criterion-label"><label>${criterion.label}</label><i class="fa-solid fa-circle-info info-icon" data-criterion="${key}"></i></div><div class="stars" data-criterion-key="${key}">${[...Array(5)].map((_, i) => `<span data-value="${5-i}">★</span>`).join('')}</div>`;
+                criteriaList.appendChild(div);
+            }
+        };
+        
+        const showInfoModal = (criterionKey) => {
+            document.getElementById('modal-title').textContent = criteria[criterionKey].label;
+            document.getElementById('modal-description').textContent = criteria[criterionKey].description;
+            infoModal.classList.add('active');
+        };
+
+        const hideAllModals = () => {
+            document.querySelectorAll('.modal-overlay').forEach(m => m.classList.remove('active'));
+        };
+
+        tabBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                tabBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                activeTab = btn.dataset.type;
+                searchInput.value = '';
+                renderInstitutions(activeTab);
+            });
+        });
+        searchInput.addEventListener('input', () => renderInstitutions(activeTab, searchInput.value));
+        backBtn.addEventListener('click', () => {
+            ratingForm.reset();
+            ratings = {};
+            document.querySelectorAll('.stars span').forEach(s => s.classList.remove('rated'));
+            goToStep(1);
+        });
+        criteriaList.addEventListener('click', e => {
+            if (e.target.classList.contains('info-icon')) { showInfoModal(e.target.dataset.criterion); }
+            if (e.target.tagName === 'SPAN' && e.target.parentElement.classList.contains('stars')) {
+                const key = e.target.parentElement.dataset.criterionKey;
+                const value = parseInt(e.target.dataset.value);
+                ratings[key] = value;
+                e.target.parentElement.querySelectorAll('span').forEach(star => {
+                    star.classList.toggle('rated', parseInt(star.dataset.value) <= value);
+                });
+            }
+        });
+        ratingForm.addEventListener('submit', e => {
+            e.preventDefault();
+            console.log('Formulaire soumis !');
+            if (Object.keys(ratings).length < Object.keys(criteria).length) {
+                alert('Veuillez noter toutes les distinctions avant de soumettre.');
+                console.log('Toutes les distinctions ne sont pas notées.');
+                return;
+            }
+            let sum = 0;
+            for (const key in ratings) { sum += ratings[key]; }
+            const userGlobalScore = sum * 4; // Chaque critère est sur 5, donc sum est sur 25. Multiplier par 4 pour obtenir un score sur 100.
+            const allScores = JSON.parse(sessionStorage.getItem(STORAGE_KEY));
+            let uniData = allScores[selectedInstitution.name];
+            if (!uniData) {
+                uniData = { totalScore: 0, voteCount: 0, individualRatings: {} };
+            } else if (!uniData.individualRatings) {
+                uniData.individualRatings = {};
+            }
+            uniData.totalScore += userGlobalScore;
+            uniData.voteCount += 1;
+            // Stocker les notes individuelles pour l'affichage
+            for (const key in ratings) {
+                if (!uniData.individualRatings[key]) {
+                    uniData.individualRatings[key] = { total: 0, count: 0 };
+                }
+                uniData.individualRatings[key].total += ratings[key];
+                uniData.individualRatings[key].count += 1;
+            }
+            allScores[selectedInstitution.name] = uniData;
+            sessionStorage.setItem(STORAGE_KEY, JSON.stringify(allScores));
+            
+            console.log('Passage à l\'étape 3.');
+            goToStep(3);
+        });
+
+        const displayResults = () => {
+            const allScores = JSON.parse(sessionStorage.getItem(STORAGE_KEY));
+            const uniData = allScores[selectedInstitution.name];
+
+            if (uniData) {
+                const globalAverage = uniData.totalScore / uniData.voteCount;
+                dynamicScoreElement.textContent = `${globalAverage.toFixed(1).replace('.', ',')} / 100`;
+                voteCountDisplay.textContent = `Basé sur ${uniData.voteCount} votes`;
+
+                const criteriaScoresList = document.getElementById('criteria-scores-list');
+                criteriaScoresList.innerHTML = '';
+
+                for (const key in criteria) {
+                    const criterionLabel = criteria[key].label;
+                    const individualRatingData = uniData.individualRatings[key];
+                    let scoreText = 'N/A';
+                    if (individualRatingData && individualRatingData.count > 0) {
+                        const averageRating = (individualRatingData.total / individualRatingData.count) * 4; // Convertir la note sur 5 en note sur 20
+                        scoreText = `${averageRating.toFixed(1).replace('.', ',')} / 20`;
+                    }
+                    const listItem = document.createElement('li');
+                    listItem.innerHTML = `<strong>${criterionLabel}</strong>: <span class="score">${scoreText}</span>`;
+                    criteriaScoresList.appendChild(listItem);
+                }
+            }
+        };
+
+        addInstitutionForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const name = document.getElementById('new-institution-name').value.trim();
+            const email = document.getElementById('new-institution-email').value.trim();
+            const type = document.querySelector('input[name="new-institution-type"]:checked').value;
+            if (!name || !email) { alert("Veuillez remplir tous les champs obligatoires."); return; }
+            selectedInstitution = { name, email, type, isNew: true };
+            ratingTitle.textContent = name;
+            dynamicUniNameSpans.forEach(span => span.textContent = name);
+            hideAllModals();
+            addInstitutionForm.reset();
+            goToStep(2);
+        });
+        document.querySelectorAll('.modal-close-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => { e.currentTarget.closest('.modal-overlay').classList.remove('active'); });
+        });
+        document.querySelectorAll('.modal-overlay').forEach(overlay => {
+            overlay.addEventListener('click', e => { if (e.target === overlay) hideAllModals(); });
+        });
+        
+        initializeScores();
+        renderInstitutions(activeTab);
+        renderCriteria();
+    });
+    </script>
+    <script>
+        /* --- Carrousel JavaScript --- */
+        const carouselContainer = document.querySelector('.carousel-container');
+        const carouselSlide = document.querySelector('.carousel-slide');
+        const carouselImages = document.querySelectorAll('.carousel-slide img');
+        const prevBtn = document.querySelector('.carousel-btn.prev');
+        const nextBtn = document.querySelector('.carousel-btn.next');
+        const carouselDotsContainer = document.querySelector('.carousel-dots');
+
+        let counter = 0;
+        let size = carouselImages[0].clientWidth;
+
+        // Créer les points de navigation
+        carouselImages.forEach((_, index) => {
+            const dot = document.createElement('div');
+            dot.classList.add('carousel-dot');
+            if (index === 0) dot.classList.add('active');
+            dot.addEventListener('click', () => {
+                counter = index;
+                updateCarousel();
+            });
+            carouselDotsContainer.appendChild(dot);
+        });
+
+        const carouselDots = document.querySelectorAll('.carousel-dot');
+        let autoSlideInterval;
+
+        const updateCarousel = () => {
+            carouselSlide.style.transform = 'translateX(' + (-size * counter) + 'px)';
+            carouselDots.forEach((dot, index) => {
+                dot.classList.toggle('active', index === counter);
+            });
+        };
+
+        const startAutoSlide = () => {
+            clearInterval(autoSlideInterval); // Clear any existing interval
+            autoSlideInterval = setInterval(() => {
+                counter++;
+                if (counter > carouselImages.length - 1) {
+                    counter = 0;
+                }
+                updateCarousel();
+            }, 5000); // 5 secondes
+        };
+
+        // Mettre à jour la taille si la fenêtre est redimensionnée
+        window.addEventListener('resize', () => {
+            size = carouselImages[0].clientWidth;
+            updateCarousel();
+        });
+
+        nextBtn.addEventListener('click', () => {
+            counter++;
+            if (counter > carouselImages.length - 1) {
+                counter = 0;
+            }
+            updateCarousel();
+            startAutoSlide(); // Redémarrer le défilement automatique après une interaction manuelle
+        });
+
+        prevBtn.addEventListener('click', () => {
+            counter--;
+            if (counter < 0) {
+                counter = carouselImages.length - 1;
+            }
+            updateCarousel();
+            startAutoSlide(); // Redémarrer le défilement automatique après une interaction manuelle
+        });
+
+        // Initialiser le carrousel et démarrer le défilement automatique
+        updateCarousel();
+        startAutoSlide();
+    </script>
+</body>
+</html>
