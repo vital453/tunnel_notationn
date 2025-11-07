@@ -4,10 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Évaluez le Prestige Académique au Bénin - Actiiva</title>
+     <link rel="icon" type="image/svg+xml" href="/AEA_logo.png" />
     
     <style>
         /* --- Importations --- */
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display-swap');
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
         @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css');
 
         /* --- Palette de Couleurs ACTIIVA --- */
@@ -657,39 +658,12 @@ Découvrez ci-dessous les 5 piliers qui définissent une<strong> Université de 
     </div>
 
     <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const institutions = [
-            // Universités
-            { name: "Centre International de Formation à l'Expertise Comptable (CIFEC)", type: "Université", logo: "/CIFEC-300x300.png" },
-            { name: "Les Cours Sonou", type: "Université", logo: "/cour_sonou.png" },
-            { name: "Ecole Supérieure d'Administration et d'Economie (ESAE)", type: "Université", logo: "/ESAE-768x480.png" },
-            { name: "Ecole Supérieure de Génie Civil Verechaguine A.K. (ESGC)", type: "Université", logo: "/esgcvak.png" },
-            { name: "Ecole Supérieure de Gestion d'Informatique et des Sciences (ESGIS)", type: "Université", logo: "/ESGIS.png.png" },
-            { name: "Ecole Supérieure des Métiers des Energies Renouvelables (ESMER)", type: "Université", logo: "/ESMER-768x768.jpg.png" },
-            { name: "Ecole Supérieure des Sciences Avancées et de Management (ESTAM)", type: "Université", logo: "/estam.jpg.png" },
-            { name: "Ecole Supérieure Sainte Félicité (ESSF)", type: "Université", logo: "/sainte_felicité.png" },
-            { name: "Esep Le Berger", type: "Université", logo: "/ESEP-Le-berger.jpg.png" },
-            { name: "Haute Ecole de Commerce et de Management (HECM)", type: "Université", logo: "/logo-hecm.png" },
-            { name: "Institut Régional du Génie Industriel (IRGIB AFRICA UNIVERSITE)", type: "Université", logo: "/IRGIB-Africa-Bénin.png" },
-            { name: "Institut Supérieur de Management Adonaï (ISM ADONAÏ)", type: "Université", logo: "/ISM-Adonai-fede-federation-europeenne-des-ecoles.png" },
-            { name: "Institut Supérieur des Métiers de l'Audiovisuel (ISMA)", type: "Université", logo: "/isma.png" },
-            { name: "PIGIER BENIN", type: "Université", logo: "/pigier-benin-cotonou-formation-afrique.png" },
-            { name: "Université Africaine de Technologie et de Management (UATM GASA)", type: "Université", logo: "/gasa_formation.jpg" },
-            { name: "Université Catholique d'Afrique de l'Ouest (UCAO)", type: "Université", logo: "/ucao.png" },
-            { name: "Université des Sciences et Technologies du Bénin (USTB)", type: "Université", logo: "/Université-des-Sciences-des-Techniques-et-des-Technologies-de-Bamako-USTTB.png" },
-            { name: "Université Polytechnique Internationale Obiang Nguema Mbasogo (UPI ONM)", type: "Université", logo: "/upi_onm.jpg" },
-            { name: "Université Protestante de l'Afrique de l'Ouest (UPAO)", type: "Université", logo: "/upao.jpg" },
-            // Centres de Formation
-            { name: "Centre de Formation Professionnelle Rossignol (CFP Rossignol)", type: "Centre de Formation", logo: "/logo.jpg" },
-            { name: "CEFES Bénin", type: "Centre de Formation", logo: "/cefes.jpg" },
-            { name: "Centre de Formation Professionnelle Le Savoir-Faire", type: "Centre de Formation", logo: "/logo_savoir_faire.png" },
-            { name: "Centre de Formation Liweitari (CFL)", type: "Centre de Formation", logo: "/logo_cfl.png" },
-            { name: "Centre de Formation Professionnelle des Arts et Métiers (CFPAM)", type: "Centre de Formation", logo: "/cfpam.jpg" },
-            { name: "Centre de Formation aux Métiers de l'Industrie (CFMI)", type: "Centre de Formation", logo: "/cfmi.jpg" },
-            { name: "École Internationale des Métiers Agricoles (EIMA)", type: "Centre de Formation", logo: "/emma.jpg" },
-            { name: "École Supérieure Polytechnique (ESP)", type: "Centre de Formation", logo: "/logo_esp.png" },
-            { name: "POLYTECH ADA (École Polytechnique des Génies)", type: "Centre de Formation", logo: "/epg.jpg" }
-        ];
+    // MODIFICATION: L'événement est maintenant 'async' pour pouvoir utiliser 'await'
+    document.addEventListener('DOMContentLoaded', async function() {
+        
+        // MODIFICATION: La liste des institutions est maintenant vide au départ. Elle sera remplie par l'appel à l'API.
+        let institutions = [];
+
         const criteria = {
             reputation: { label: "Réputation institutionnelle et crédibilité académique", description: `Reconnaissance officielle (autorisation et accréditations nationales/internationales).\nParcours historique et continuité des activités éducatives.\nNotoriété auprès des étudiants, parents et employeurs.\nQualité perçue des diplômés sur le marché du travail.\nObjectif : identifier les universités qui inspirent confiance et respect par la constance de leur excellence.` },
             training_offer: { label: "Qualité et diversité de l’offre de formation", description: `Nombre et variété des filières reconnues.\nActualisation régulière des programmes selon les besoins du marché.\nIntégration des nouvelles technologies et pédagogies innovantes.\nPrésence de formations professionnalisantes ou à fort impact social.\nObjectif : valoriser les institutions qui offrent une formation pertinente, diversifiée et adaptée à la réalité économique.` },
@@ -697,6 +671,7 @@ Découvrez ci-dessous les 5 piliers qui définissent une<strong> Université de 
             societal_impact: { label: "Contribution à la recherche, à l’employabilité et à l’impact sociétal", description: `Partenariats universitaires, institutionnels ou industriels.\nProjets de recherche, publications ou innovations pédagogiques.\nInitiatives favorisant l’insertion professionnelle des diplômés.\nEngagement social, environnemental ou communautaire.\nObjectif : récompenser les universités qui forment non seulement des diplômés, mais aussi des acteurs de développement.` },
             student_experience: { label: "Attractivité et expérience étudiante", description: `Dynamisme du campus, vie associative et accompagnement des étudiants.\nPolitique d’accueil, de bourses et d’inclusion.\nCommunication institutionnelle et image publique.\nSatisfaction des étudiants et alumni.` }
         };
+
         const steps = document.querySelectorAll('.step');
         const tabBtns = document.querySelectorAll('.tab-btn');
         const searchInput = document.getElementById('search-input');
@@ -711,29 +686,16 @@ Découvrez ci-dessous les 5 piliers qui définissent une<strong> Université de 
         const dynamicScoreElement = document.getElementById('dynamic-score');
         const dynamicUniNameSpans = document.querySelectorAll('.dynamic-uni-name');
         const voteCountDisplay = document.getElementById('vote-count-display');
-        const STORAGE_KEY = 'universityScores_actiiva';
+        
         let activeTab = 'Université';
         let selectedInstitution = null;
         let ratings = {};
         
-        const initializeScores = () => {
-            if (sessionStorage.getItem(STORAGE_KEY)) { return; }
-            const initialScores = {};
-            const allInstitutions = institutions.map(inst => inst.name);
-            allInstitutions.forEach(name => {
-                const fakeVoteCount = Math.floor(Math.random() * (200 - 50) + 50);
-                const fakeTotalScore = ((Math.random() * (4.2 - 2.5) + 2.5) * 20) * fakeVoteCount; // Convertir la note sur 5 en note sur 100 avant de calculer le total
-                initialScores[name] = { totalScore: fakeTotalScore, voteCount: fakeVoteCount };
-            });
-            sessionStorage.setItem(STORAGE_KEY, JSON.stringify(initialScores));
-        };
+        // MODIFICATION: La logique de sessionStorage est supprimée.
 
         const goToStep = (stepNumber) => {
             steps.forEach(step => step.classList.remove('active'));
             document.getElementById(`step-${stepNumber}`).classList.add('active');
-            if (stepNumber === 3) {
-                displayResults();
-            }
         };
         
         const renderInstitutions = (type, filter = '') => {
@@ -760,7 +722,7 @@ Découvrez ci-dessous les 5 piliers qui définissent une<strong> Université de 
                     <h3>${inst.name}</h3>
                 `;
                 card.addEventListener('click', () => {
-                    selectedInstitution = inst;
+                    selectedInstitution = inst; // inst contient maintenant l'ID de la base de données
                     ratingTitle.textContent = inst.name;
                     dynamicUniNameSpans.forEach(span => span.textContent = inst.name);
                     goToStep(2);
@@ -802,13 +764,16 @@ Découvrez ci-dessous les 5 piliers qui définissent une<strong> Université de 
                 renderInstitutions(activeTab);
             });
         });
+
         searchInput.addEventListener('input', () => renderInstitutions(activeTab, searchInput.value));
+
         backBtn.addEventListener('click', () => {
             ratingForm.reset();
             ratings = {};
             document.querySelectorAll('.stars span').forEach(s => s.classList.remove('rated'));
             goToStep(1);
         });
+
         criteriaList.addEventListener('click', e => {
             if (e.target.classList.contains('info-icon')) { showInfoModal(e.target.dataset.criterion); }
             if (e.target.tagName === 'SPAN' && e.target.parentElement.classList.contains('stars')) {
@@ -820,61 +785,84 @@ Découvrez ci-dessous les 5 piliers qui définissent une<strong> Université de 
                 });
             }
         });
-        ratingForm.addEventListener('submit', e => {
+
+        // MODIFICATION: La fonction de soumission est maintenant 'async' et communique avec le backend.
+        ratingForm.addEventListener('submit', async e => {
             e.preventDefault();
-            console.log('Formulaire soumis !');
             if (Object.keys(ratings).length < Object.keys(criteria).length) {
                 alert('Veuillez noter toutes les distinctions avant de soumettre.');
-                console.log('Toutes les distinctions ne sont pas notées.');
                 return;
             }
-            let sum = 0;
-            for (const key in ratings) { sum += ratings[key]; }
-            const userGlobalScore = sum * 4; // Chaque critère est sur 5, donc sum est sur 25. Multiplier par 4 pour obtenir un score sur 100.
-            const allScores = JSON.parse(sessionStorage.getItem(STORAGE_KEY));
-            let uniData = allScores[selectedInstitution.name];
-            if (!uniData) {
-                uniData = { totalScore: 0, voteCount: 0, individualRatings: {} };
-            } else if (!uniData.individualRatings) {
-                uniData.individualRatings = {};
-            }
-            uniData.totalScore += userGlobalScore;
-            uniData.voteCount += 1;
-            // Stocker les notes individuelles pour l'affichage
-            for (const key in ratings) {
-                if (!uniData.individualRatings[key]) {
-                    uniData.individualRatings[key] = { total: 0, count: 0 };
+
+            const payload = {
+                institution_id: selectedInstitution.id, // On utilise l'ID de la base de données
+                ratings: ratings
+            };
+
+            try {
+                // On appelle le script PHP sur le sous-domaine backend
+                const response = await fetch('https://backend.actiiva.org/submit_rating.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(payload)
+                });
+
+                if (!response.ok) {
+                    throw new Error('Erreur lors de la soumission de votre vote.');
                 }
-                uniData.individualRatings[key].total += ratings[key];
-                uniData.individualRatings[key].count += 1;
+
+                const result = await response.json();
+                
+                // On passe à l'étape 3 et on affiche les vrais résultats renvoyés par le serveur
+                goToStep(3);
+                displayResults(result.scores);
+
+            } catch (error) {
+                console.error(error);
+                alert("Une erreur est survenue. Votre vote n'a pas pu être enregistré.");
             }
-            allScores[selectedInstitution.name] = uniData;
-            sessionStorage.setItem(STORAGE_KEY, JSON.stringify(allScores));
-            
-            console.log('Passage à l\'étape 3.');
-            goToStep(3);
         });
 
-        const displayResults = () => {
-            const allScores = JSON.parse(sessionStorage.getItem(STORAGE_KEY));
-            const uniData = allScores[selectedInstitution.name];
-
-            if (uniData) {
-                const globalAverage = uniData.totalScore / uniData.voteCount;
+        // MODIFICATION: Cette fonction affiche maintenant les scores réels reçus du backend.
+        // const displayResults = (scores) => {
+        //     if (scores) {
+        //         const globalAverage = parseFloat(scores.averageScore || 0);
+        //         dynamicScoreElement.textContent = `${globalAverage.toFixed(1).replace('.', ',')} / 100`;
+        //         voteCountDisplay.textContent = `Basé sur ${scores.voteCount} votes réels`;
+                
+        //         // Pour afficher les scores par critère, il faudrait faire évoluer le script PHP
+        //         // pour qu'il renvoie également cette information détaillée.
+        //         const criteriaScoresList = document.getElementById('criteria-scores-list');
+        //         criteriaScoresList.innerHTML = '<li>Les détails des scores par critère seront bientôt disponibles.</li>';
+        //     }
+        // };
+        
+        const displayResults = (scores) => {
+            if (scores) {
+                // Affichage du score global (ne change pas)
+                const globalAverage = parseFloat(scores.averageScore || 0);
                 dynamicScoreElement.textContent = `${globalAverage.toFixed(1).replace('.', ',')} / 100`;
-                voteCountDisplay.textContent = `Basé sur ${uniData.voteCount} votes`;
+                voteCountDisplay.textContent = `Basé sur ${scores.voteCount} votes réels`;
 
+                // --- NOUVELLE PARTIE : Affichage des scores détaillés par critère ---
                 const criteriaScoresList = document.getElementById('criteria-scores-list');
-                criteriaScoresList.innerHTML = '';
+                criteriaScoresList.innerHTML = ''; // On vide la liste précédente
 
+                // On boucle sur l'objet 'criteria' (qui contient les labels) pour garder le bon ordre
                 for (const key in criteria) {
                     const criterionLabel = criteria[key].label;
-                    const individualRatingData = uniData.individualRatings[key];
                     let scoreText = 'N/A';
-                    if (individualRatingData && individualRatingData.count > 0) {
-                        const averageRating = (individualRatingData.total / individualRatingData.count) * 4; // Convertir la note sur 5 en note sur 20
+                    
+                    // On vérifie si un score existe pour ce critère dans les données reçues
+                    if (scores.detailedScores && scores.detailedScores[key]) {
+                        // On convertit la note sur 5 en une note sur 20 (5 * 4 = 20)
+                        const averageRating = parseFloat(scores.detailedScores[key]) * 4;
                         scoreText = `${averageRating.toFixed(1).replace('.', ',')} / 20`;
                     }
+
+                    // On crée l'élément de liste et on l'ajoute
                     const listItem = document.createElement('li');
                     listItem.innerHTML = `<strong>${criterionLabel}</strong>: <span class="score">${scoreText}</span>`;
                     criteriaScoresList.appendChild(listItem);
@@ -882,33 +870,78 @@ Découvrez ci-dessous les 5 piliers qui définissent une<strong> Université de 
             }
         };
 
-        addInstitutionForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            const name = document.getElementById('new-institution-name').value.trim();
-            const email = document.getElementById('new-institution-email').value.trim();
-            const type = document.querySelector('input[name="new-institution-type"]:checked').value;
-            if (!name || !email) { alert("Veuillez remplir tous les champs obligatoires."); return; }
-            selectedInstitution = { name, email, type, isNew: true };
-            ratingTitle.textContent = name;
-            dynamicUniNameSpans.forEach(span => span.textContent = name);
-            hideAllModals();
-            addInstitutionForm.reset();
-            goToStep(2);
+        addInstitutionForm.addEventListener('submit', async (e) => { // On rend la fonction async
+    e.preventDefault();
+    const name = document.getElementById('new-institution-name').value.trim();
+    const email = document.getElementById('new-institution-email').value.trim();
+    const type = document.querySelector('input[name="new-institution-type"]:checked').value;
+    if (!name || !email) { 
+        alert("Veuillez remplir tous les champs obligatoires."); 
+        return; 
+    }
+
+    const payload = { name, email, type };
+
+    try {
+        const response = await fetch('https://backend.actiiva.org/add_institution.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
         });
+
+        if (!response.ok) {
+            throw new Error("Le serveur a répondu par une erreur lors de l'ajout.");
+        }
+        
+        const result = await response.json();
+        
+        // On recharge la liste des institutions pour que la nouvelle apparaisse
+        await loadInstitutions(); 
+        
+        // On sélectionne la nouvelle institution pour passer à l'étape du vote
+        selectedInstitution = { name, type, id: result.newId }; // On récupère le nouvel ID renvoyé par le PHP
+        ratingTitle.textContent = name;
+        dynamicUniNameSpans.forEach(span => span.textContent = name);
+        hideAllModals();
+        addInstitutionForm.reset();
+        goToStep(2);
+
+    } catch (error) {
+        console.error("Erreur lors de l'ajout de l'institution :", error);
+        alert("Une erreur est survenue. L'institution n'a pas pu être ajoutée.");
+    }
+});
+
         document.querySelectorAll('.modal-close-btn').forEach(btn => {
             btn.addEventListener('click', (e) => { e.currentTarget.closest('.modal-overlay').classList.remove('active'); });
         });
+
         document.querySelectorAll('.modal-overlay').forEach(overlay => {
             overlay.addEventListener('click', e => { if (e.target === overlay) hideAllModals(); });
         });
         
-        initializeScores();
-        renderInstitutions(activeTab);
+        // AJOUT: Nouvelle fonction pour charger les institutions depuis le backend.
+        async function loadInstitutions() {
+            try {
+                const response = await fetch('https://backend.actiiva.org/get_institutions.php');
+                if (!response.ok) {
+                    throw new Error('Erreur réseau lors du chargement des institutions.');
+                }
+                institutions = await response.json();
+                renderInstitutions(activeTab); // On affiche les institutions une fois chargées
+            } catch (error) {
+                console.error(error);
+                institutionsGrid.innerHTML = "<p style='color: var(--grey-color);'>Impossible de charger la liste des établissements. Veuillez réessayer plus tard.</p>";
+            }
+        }
+        
+        // MODIFICATION: On appelle la nouvelle fonction de chargement au démarrage.
+        await loadInstitutions();
         renderCriteria();
     });
     </script>
     <script>
-        /* --- Carrousel JavaScript --- */
+        /* --- Carrousel JavaScript (AUCUNE MODIFICATION ICI) --- */
         const carouselContainer = document.querySelector('.carousel-container');
         const carouselSlide = document.querySelector('.carousel-slide');
         const carouselImages = document.querySelectorAll('.carousel-slide img');
