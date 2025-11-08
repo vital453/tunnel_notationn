@@ -576,6 +576,15 @@ Découvrez ci-dessous les 5 piliers qui définissent une<strong> Université de 
             <main>
                 <form id="rating-form">
                     <div class="criteria-list"></div>
+                    <!-- NOUVEAU : Champ de commentaire -->
+<div class="comment-section" style="text-align: left; margin-top: 30px;">
+    <label for="comment-input" style="font-weight: 600; margin-bottom: 10px; display: block;">
+        Ajouter un commentaire (facultatif)
+    </label>
+    <textarea id="comment-input" rows="4" 
+              placeholder="Partagez votre appréciation générale, une suggestion ou un point fort de cet établissement..." 
+              style="width: 100%; padding: 12px; border: 1px solid var(--border-color); border-radius: 8px; font-size: 15px; font-family: 'Poppins', sans-serif; resize: vertical;"></textarea>
+</div>
                     <div class="actions">
                         <button type="button" id="back-btn" class="btn btn-secondary">Changer d'institution</button>
                         <button type="submit" class="btn btn-primary">Soumettre mon évaluation</button>
@@ -771,6 +780,8 @@ Découvrez ci-dessous les 5 piliers qui définissent une<strong> Université de 
             ratingForm.reset();
             ratings = {};
             document.querySelectorAll('.stars span').forEach(s => s.classList.remove('rated'));
+            // NOUVEAU : On vide aussi le champ de commentaire
+    document.getElementById('comment-input').value = '';
             goToStep(1);
         });
 
@@ -793,10 +804,14 @@ Découvrez ci-dessous les 5 piliers qui définissent une<strong> Université de 
                 alert('Veuillez noter toutes les distinctions avant de soumettre.');
                 return;
             }
+            
+            // NOUVEAU : On récupère le commentaire
+    const comment = document.getElementById('comment-input').value.trim();
 
             const payload = {
                 institution_id: selectedInstitution.id, // On utilise l'ID de la base de données
-                ratings: ratings
+                ratings: ratings,
+                comment: comment // On ajoute le commentaire ici
             };
 
             try {
