@@ -557,7 +557,7 @@
                 
                 <!-- MODIFICATION : Ajout d'un lien pour ré-ouvrir la modale des critères -->
                 <div class="criteria-link-container">
-                    <a id="show-criteria-link"><i class="fa-solid fa-award"></i> Voir les critères de prestige</a>
+                    <a class="show-criteria-link" style="cursor: pointer;"><i class="fa-solid fa-award"></i> Voir les critères de prestige</a>
                 </div>
 
                 <div class="tabs">
@@ -577,7 +577,7 @@
                 <h2 id="rating-for-title"></h2>
             </header>
             <div class="criteria-link-container">
-                    <a id="show-criteria-link"><i class="fa-solid fa-award"></i> Voir les critères de prestige</a>
+                    <a class="show-criteria-link" style="cursor: pointer;"><i class="fa-solid fa-award"></i> Voir les critères de prestige</a>
                 </div>
             <main>
                 <form id="rating-form">
@@ -760,8 +760,9 @@
         const voteCountDisplay = document.getElementById('vote-count-display');
         
         // MODIFICATION : Références à la nouvelle modale et à son lien de déclenchement
-        const prestigeModal = document.getElementById('prestige-modal');
-        const showCriteriaLink = document.getElementById('show-criteria-link');
+        // APRÈS
+const prestigeModal = document.getElementById('prestige-modal');
+const showCriteriaLinks = document.querySelectorAll('.show-criteria-link'); // On utilise querySelectorAll avec un '.' pour la classe
         
         let activeTab = 'Université';
         let selectedInstitution = null;
@@ -956,10 +957,13 @@
         });
         
         // MODIFICATION : Ajout du gestionnaire de clic pour le lien "Voir les critères"
-        showCriteriaLink.addEventListener('click', (e) => {
-            e.preventDefault();
-            prestigeModal.classList.add('active');
-        });
+      // APRÈS
+showCriteriaLinks.forEach(link => {
+    link.addEventListener('click', (e) => {
+        e.preventDefault();
+        prestigeModal.classList.add('active');
+    });
+});
 
         async function loadInstitutions() {
             try {
