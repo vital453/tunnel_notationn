@@ -286,59 +286,90 @@
         
         /* ---- AJOUTEZ CE NOUVEAU BLOC CSS ---- */
 
-/* La grille qui contient tous les logos */
-.partners-grid {
-    display: grid;
-    /* 4 colonnes sur les grands écrans */
-    grid-template-columns: repeat(4, 1fr);
-    gap: 20px; /* Espace entre les logos */
-    align-items: center;
+/* Style du conteneur principal de la section (arrière-plan blanc, etc.) */
+.partners-section {
+    width: 100%;
+    max-width: 900px; /* Un peu plus large pour accommoder les marges */
+    text-align: center;
+    background: var(--white-color);
+    padding: 40px;
+    border-radius: 24px; /* Bords plus arrondis comme sur l'image */
+    box-shadow: var(--shadow);
 }
 
-/* Le conteneur de chaque logo individuel */
+.partners-section h2 {
+    font-size: 22px;
+    color: var(--color-charcoal);
+    margin-bottom: 30px;
+}
+
+/* Le "viewport" du carrousel qui cache les logos en dehors */
+.logos-carousel {
+    overflow: hidden;
+    position: relative;
+    /* Empêche les clics de sélectionner le texte pendant le défilement */
+    user-select: none; 
+}
+
+/* La piste animée qui contient tous les logos */
+.logos-slide {
+    display: flex; /* Aligne les logos horizontalement */
+    /* L'animation : nom, durée, type, répétition */
+    animation: slide 20s linear infinite;
+}
+
+/* Le style de chaque carte de logo */
 .partner-logo {
-    background-color: var(--white-color);
-    padding: 20px;
-    border-radius: 12px;
-    border: 1px solid var(--border-color);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 90px; /* Hauteur fixe pour un alignement parfait */
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    /* 4 logos visibles sur grand écran (100% / 4 = 25%) */
+    flex: 0 0 25%; 
+    padding: 15px; /* Espace à l'intérieur de la carte */
+    box-sizing: border-box; /* Le padding ne s'ajoute pas à la largeur */
 }
 
-.partner-logo:hover {
-    transform: translateY(-5px);
-    box-shadow: var(--shadow-hover);
-}
-
-/* L'image du logo elle-même */
+/* L'image du logo elle-même, pour qu'elle s'adapte bien */
 .partner-logo img {
-    max-width: 100%;
-    max-height: 100%;
+    width: 100%; /* L'image remplit la carte */
+    max-height: 70px; /* Hauteur maximale pour ne pas être trop grande */
     object-fit: contain; /* Assure que le logo n'est pas déformé */
+    transition: transform 0.3s ease;
+}
+
+/* Effet de pause au survol */
+.logos-carousel:hover .logos-slide {
+    animation-play-state: paused;
+}
+.partner-logo img:hover {
+    transform: scale(1.1); /* Petit zoom au survol du logo */
+}
+
+/* L'animation de défilement */
+@keyframes slide {
+    from {
+        transform: translateX(0);
+    }
+    to {
+        /* On déplace de 50% car on a dupliqué le contenu. C'est ce qui crée la boucle parfaite. */
+        transform: translateX(-50%);
+    }
 }
 
 
-/* ---- RESPONSIVITÉ DE LA GRILLE ---- */
+/* ---- RESPONSIVITÉ DU CARROUSEL ---- */
 
-/* Pour les tablettes et écrans moyens (3 colonnes) */
+/* Pour les tablettes (3 logos visibles) */
 @media (max-width: 992px) {
-    .partners-grid {
-        grid-template-columns: repeat(3, 1fr);
+    .partner-logo {
+        flex: 0 0 33.33%; /* 100% / 3 */
     }
 }
 
-/* Pour les petits écrans et mobiles (2 colonnes) */
+/* Pour les mobiles (2 logos visibles) */
 @media (max-width: 576px) {
-    .partners-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 15px;
-    }
     .partner-logo {
-        height: 80px;
-        padding: 15px;
+        flex: 0 0 50%; /* 100% / 2 */
+    }
+     .partners-section {
+        padding: 30px 15px;
     }
 }
         
@@ -671,50 +702,26 @@
         </div>
     </div>
 
-    <!-- REMPLACEZ L'ANCIENNE SECTION PARTENAIRES PAR CELLE-CI -->
+   <!-- REMPLACEZ L'ANCIENNE SECTION PARTENAIRES PAR CELLE-CI -->
 <section class="partners-section">
     <h2>Nos Partenaires de l'Excellence</h2>
     
-    <!-- Nouvelle structure en grille -->
-    <div class="partners-grid">
-        <!-- Chaque logo est dans sa propre div pour un meilleur style -->
-        <div class="partner-logo">
-            <img src="/aif.png" alt="Logo Celtiis">
+    <!-- Le conteneur qui masque ce qui dépasse -->
+    <div class="logos-carousel">
+        <!-- La "piste" qui va défiler et qui contient les logos dupliqués -->
+        <div class="logos-slide">
+            <!-- Set de logos original -->
+            <div class="partner-logo"><img src="/aif.png" alt="Africa Investment Forum"></div>
+            <div class="partner-logo"><img src="/agefic.png" alt="AGEFIC SA"></div>
+            <div class="partner-logo"><img src="/(Fond_Transp)_ACTiiVA_logo.png" alt="ACTiiVA"></div>
+            <div class="partner-logo"><img src="/impactia.jpeg" alt="Impactia"></div>
+            
+            <!-- Set de logos DUPLIQUÉ pour la boucle infinie -->
+            <div class="partner-logo"><img src="/aif.png" alt="Africa Investment Forum"></div>
+            <div class="partner-logo"><img src="/agefic.png" alt="AGEFIC SA"></div>
+            <div class="partner-logo"><img src="/(Fond_Transp)_ACTiiVA_logo.png" alt="ACTiiVA"></div>
+            <div class="partner-logo"><img src="/impactia.jpeg" alt="Impactia"></div>
         </div>
-        <div class="partner-logo">
-            <img src="/agefic.png" alt="Logo GIZ">
-        </div>
-        <div class="partner-logo">
-            <img src="/(Fond_Transp)_ACTiiVA_logo.png" alt="Logo Jawunta">
-        </div>
-        <div class="partner-logo">
-            <img src="/impactia.jpeg" alt="Logo Yas">
-        </div>
-        <div class="partner-logo">
-            <img src="/aif.png" alt="Logo Celtiis">
-        </div>
-        <div class="partner-logo">
-            <img src="/agefic.png" alt="Logo GIZ">
-        </div>
-        <div class="partner-logo">
-            <img src="/(Fond_Transp)_ACTiiVA_logo.png" alt="Logo Jawunta">
-        </div>
-        <div class="partner-logo">
-            <img src="/impactia.jpeg" alt="Logo Yas">
-        </div>
-        <div class="partner-logo">
-            <img src="/aif.png" alt="Logo Celtiis">
-        </div>
-        <div class="partner-logo">
-            <img src="/agefic.png" alt="Logo GIZ">
-        </div>
-        <div class="partner-logo">
-            <img src="/(Fond_Transp)_ACTiiVA_logo.png" alt="Logo Jawunta">
-        </div>
-        <div class="partner-logo">
-            <img src="/impactia.jpeg" alt="Logo Yas">
-        </div>
-        <!-- Ajoutez d'autres partenaires ici en suivant le même format -->
     </div>
 </section>
 
