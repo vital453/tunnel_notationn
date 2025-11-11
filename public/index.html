@@ -283,7 +283,66 @@
             box-shadow: var(--shadow);
         }
         .partners-section h2 { font-size: 22px; color: var(--color-charcoal); margin-bottom: 30px; }
-        .logos-carousel { overflow: hidden; position: relative; white-space: nowrap; }
+        
+        /* ---- AJOUTEZ CE NOUVEAU BLOC CSS ---- */
+
+/* La grille qui contient tous les logos */
+.partners-grid {
+    display: grid;
+    /* 4 colonnes sur les grands écrans */
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px; /* Espace entre les logos */
+    align-items: center;
+}
+
+/* Le conteneur de chaque logo individuel */
+.partner-logo {
+    background-color: var(--white-color);
+    padding: 20px;
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 90px; /* Hauteur fixe pour un alignement parfait */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.partner-logo:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-hover);
+}
+
+/* L'image du logo elle-même */
+.partner-logo img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain; /* Assure que le logo n'est pas déformé */
+}
+
+
+/* ---- RESPONSIVITÉ DE LA GRILLE ---- */
+
+/* Pour les tablettes et écrans moyens (3 colonnes) */
+@media (max-width: 992px) {
+    .partners-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+/* Pour les petits écrans et mobiles (2 colonnes) */
+@media (max-width: 576px) {
+    .partners-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+    }
+    .partner-logo {
+        height: 80px;
+        padding: 15px;
+    }
+}
+        
+        /* .logos-carousel { overflow: hidden; position: relative; white-space: nowrap; }
         .logos-carousel:hover .logos-slide { animation-play-state: paused; }
         .logos-carousel:before, .logos-carousel:after {
             content: ""; position: absolute; top: 0; width: 100px; height: 100%; z-index: 2;
@@ -293,7 +352,7 @@
         .logos-slide { display: inline-block; animation: 35s slide infinite linear; }
         .logos-slide img { height: 50px; margin: 0 40px; filter: grayscale(100%); opacity: 0.7; transition: filter 0.3s ease, opacity 0.3s ease; }
         .logos-carousel:hover .logos-slide img { filter: grayscale(0%); opacity: 1; }
-        @keyframes slide { from { transform: translateX(0%); } to { transform: translateX(-100%); }}
+        @keyframes slide { from { transform: translateX(0%); } to { transform: translateX(-100%); }} */
 
         /* --- Styles du Carrousel du Header --- */
         .carousel-container {
@@ -611,22 +670,53 @@
             </div>
         </div>
     </div>
+
+    <!-- REMPLACEZ L'ANCIENNE SECTION PARTENAIRES PAR CELLE-CI -->
+<section class="partners-section">
+    <h2>Nos Partenaires de l'Excellence</h2>
     
-    <section class="partners-section">
-        <h2>Nos Partenaires de l'Excellence</h2>
-        <div class="logos-carousel">
-            <div class="logos-slide">
-                <img src="/aif.png" alt="AIF">
-                <img src="/agefic.png" alt="AGEFIC">
-                <img src="/(Fond_Transp)_ACTiiVA_logo.png" alt="ACTiiVA">
-                <img src="/impactia.jpeg" alt="Impactia">
-                <img src="/aif.png" alt="AIF">
-                <img src="/agefic.png" alt="AGEFIC">
-                <img src="/(Fond_Transp)_ACTiiVA_logo.png" alt="ACTiiVA">
-                <img src="/impactia.jpeg" alt="Impactia">
-            </div>
+    <!-- Nouvelle structure en grille -->
+    <div class="partners-grid">
+        <!-- Chaque logo est dans sa propre div pour un meilleur style -->
+        <div class="partner-logo">
+            <img src="/aif.png" alt="Logo Celtiis">
         </div>
-    </section>
+        <div class="partner-logo">
+            <img src="/agefic.png" alt="Logo GIZ">
+        </div>
+        <div class="partner-logo">
+            <img src="/(Fond_Transp)_ACTiiVA_logo.png" alt="Logo Jawunta">
+        </div>
+        <div class="partner-logo">
+            <img src="/impactia.jpeg" alt="Logo Yas">
+        </div>
+        <div class="partner-logo">
+            <img src="/aif.png" alt="Logo Celtiis">
+        </div>
+        <div class="partner-logo">
+            <img src="/agefic.png" alt="Logo GIZ">
+        </div>
+        <div class="partner-logo">
+            <img src="/(Fond_Transp)_ACTiiVA_logo.png" alt="Logo Jawunta">
+        </div>
+        <div class="partner-logo">
+            <img src="/impactia.jpeg" alt="Logo Yas">
+        </div>
+        <div class="partner-logo">
+            <img src="/aif.png" alt="Logo Celtiis">
+        </div>
+        <div class="partner-logo">
+            <img src="/agefic.png" alt="Logo GIZ">
+        </div>
+        <div class="partner-logo">
+            <img src="/(Fond_Transp)_ACTiiVA_logo.png" alt="Logo Jawunta">
+        </div>
+        <div class="partner-logo">
+            <img src="/impactia.jpeg" alt="Logo Yas">
+        </div>
+        <!-- Ajoutez d'autres partenaires ici en suivant le même format -->
+    </div>
+</section>
 
     <!-- MODIFICATION : Nouvelle modale pour afficher la présentation et les critères -->
     <div id="prestige-modal" class="modal-overlay">
