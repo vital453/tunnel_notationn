@@ -232,9 +232,31 @@
             font-weight: 600;
             color: var(--primary-teal);
         }
-        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); display: flex; justify-content: center; align-items: center; opacity: 0; visibility: hidden; transition: all 0.3s ease; z-index: 1000; overflow-y: auto; padding: 20px 0;}
+        .modal-overlay { 
+            position: fixed; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%; 
+            background: rgba(0,0,0,0.6); 
+            display: flex; 
+            justify-content: center; 
+            align-items: flex-start; 
+            opacity: 0; 
+            visibility: hidden; 
+            transition: all 0.3s ease; 
+            z-index: 1000; 
+            overflow-y: auto; 
+            padding: 40px 20px;
+         /* Ajustement du padding pour les petits écrans */
+    @media (max-width: 768px) {
+        .modal-overlay {
+            padding: 20px 10px;
+        }
+        }
+        }
         .modal-overlay.active { opacity: 1; visibility: visible; }
-        .modal-content { background: var(--white-color); padding: 30px; border-radius: 12px; width: 90%; max-width: 500px; transform: scale(0.9); transition: transform 0.3s ease; text-align: left; }
+        .modal-content { background: var(--white-color); padding: 30px; border-radius: 12px; width: 90%; max-width: 500px; transform: scale(0.9); transition: transform 0.3s ease; text-align: left;  margin-bottom: auto;}
         .modal-overlay.active .modal-content { transform: scale(1); }
         .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
         .modal-header h2 { font-size: 22px; }
@@ -554,6 +576,9 @@
                 <p>Attribuez une note à chaque critère selon votre appréciation. Votre évaluation contribue à la reconnaissance des universités les plus inspirantes du pays.</p>
                 <h2 id="rating-for-title"></h2>
             </header>
+            <div class="criteria-link-container">
+                    <a id="show-criteria-link"><i class="fa-solid fa-award"></i> Voir les critères de prestige</a>
+                </div>
             <main>
                 <form id="rating-form">
                     <div class="criteria-list"></div>
@@ -657,7 +682,7 @@
                     </div>
                 </section>
                 <div style="margin-top: 30px;">
-                    <button class="btn btn-primary modal-close-btn">Commencer à voter</button>
+                    <button class="btn btn-primary modal-close-btn">Commencer l'évaluation</button>
                 </div>
             </div>
         </div>
