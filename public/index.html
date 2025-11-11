@@ -284,16 +284,17 @@
         }
         .partners-section h2 { font-size: 22px; color: var(--color-charcoal); margin-bottom: 30px; }
         
-        /* ---- AJOUTEZ CE NOUVEAU BLOC CSS ---- */
+       /* ---- REMPLACEZ L'ANCIEN CSS DES PARTENAIRES PAR CELUI-CI ---- */
 
-/* Style du conteneur principal de la section (arrière-plan blanc, etc.) */
+/* Conteneur principal de la section */
 .partners-section {
     width: 100%;
-    max-width: 900px; /* Un peu plus large pour accommoder les marges */
+    max-width: 900px;
     text-align: center;
     background: var(--white-color);
-    padding: 40px;
-    border-radius: 24px; /* Bords plus arrondis comme sur l'image */
+    /* Augmentation du padding vertical pour plus d'aisance */
+    padding: 40px 20px; 
+    border-radius: 24px;
     box-shadow: var(--shadow);
 }
 
@@ -303,74 +304,78 @@
     margin-bottom: 30px;
 }
 
-/* Le "viewport" du carrousel qui cache les logos en dehors */
+/* Le "viewport" du carrousel */
 .logos-carousel {
     overflow: hidden;
     position: relative;
-    /* Empêche les clics de sélectionner le texte pendant le défilement */
-    user-select: none; 
+    user-select: none;
 }
 
 /* La piste animée qui contient tous les logos */
 .logos-slide {
-    display: flex; /* Aligne les logos horizontalement */
-    /* L'animation : nom, durée, type, répétition */
-    animation: slide 20s linear infinite;
+    display: flex;
+    /* Aligne les logos verticalement au centre de la piste */
+    align-items: center; 
+    /* Durée plus longue pour un défilement plus doux */
+    animation: slide 30s linear infinite; 
 }
 
-/* Le style de chaque carte de logo */
+/* Le conteneur de chaque logo (plus de style de carte) */
 .partner-logo {
-    /* 4 logos visibles sur grand écran (100% / 4 = 25%) */
-    flex: 0 0 25%; 
-    padding: 15px; /* Espace à l'intérieur de la carte */
-    box-sizing: border-box; /* Le padding ne s'ajoute pas à la largeur */
+    /* Pour afficher 5 logos sur grand écran (100% / 5) */
+    flex: 0 0 20%; 
+    box-sizing: border-box;
+    /* Le padding crée l'espacement ENTRE les logos */
+    padding: 0 30px; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-/* L'image du logo elle-même, pour qu'elle s'adapte bien */
+/* L'image du logo elle-même (LA CLÉ EST ICI) */
 .partner-logo img {
-    width: 100%; /* L'image remplit la carte */
-    max-height: 70px; /* Hauteur maximale pour ne pas être trop grande */
-    object-fit: contain; /* Assure que le logo n'est pas déformé */
+    /* On définit une hauteur fixe. C'est ce qui rend les logos plus grands et consistants */
+    height: 60px; 
+    /* Le navigateur calcule la largeur automatiquement pour ne pas déformer l'image */
+    width: auto; 
+    /* Sécurité pour que l'image ne dépasse jamais son conteneur */
+    max-width: 100%; 
     transition: transform 0.3s ease;
 }
 
-/* Effet de pause au survol */
+/* Effets de survol */
 .logos-carousel:hover .logos-slide {
     animation-play-state: paused;
 }
 .partner-logo img:hover {
-    transform: scale(1.1); /* Petit zoom au survol du logo */
+    transform: scale(1.1);
 }
 
-/* L'animation de défilement */
+/* Animation de défilement (inchangée) */
 @keyframes slide {
-    from {
-        transform: translateX(0);
-    }
-    to {
-        /* On déplace de 50% car on a dupliqué le contenu. C'est ce qui crée la boucle parfaite. */
-        transform: translateX(-50%);
-    }
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
 }
 
 
 /* ---- RESPONSIVITÉ DU CARROUSEL ---- */
 
-/* Pour les tablettes (3 logos visibles) */
+/* Tablettes (4 logos visibles) */
 @media (max-width: 992px) {
-    .partner-logo {
-        flex: 0 0 33.33%; /* 100% / 3 */
-    }
+    .partner-logo { flex: 0 0 25%; } /* 100% / 4 */
 }
 
-/* Pour les mobiles (2 logos visibles) */
+/* Grandes tablettes / petits laptops (3 logos visibles) */
+@media (max-width: 768px) {
+    .partner-logo { flex: 0 0 33.33%; padding: 0 25px; } /* 100% / 3 */
+    .partner-logo img { height: 50px; }
+}
+
+/* Mobiles (2 logos visibles) */
 @media (max-width: 576px) {
-    .partner-logo {
-        flex: 0 0 50%; /* 100% / 2 */
-    }
-     .partners-section {
-        padding: 30px 15px;
-    }
+    .partner-logo { flex: 0 0 50%; padding: 0 20px; } /* 100% / 2 */
+    .partner-logo img { height: 45px; }
+    .partners-section { padding: 30px 15px; }
 }
         
         /* .logos-carousel { overflow: hidden; position: relative; white-space: nowrap; }
