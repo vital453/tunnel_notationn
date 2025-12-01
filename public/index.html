@@ -668,6 +668,47 @@
                 gap: 10px;
             }
         }
+
+       .success-details {
+           text-align: left;
+           margin-top: 40px;
+           padding: 25px;
+           background-color: var(--light-grey-color);
+           border-radius: 12px;
+           border: 1px solid var(--border-color);
+       }
+       .success-details p {
+           margin-bottom: 15px;
+           color: var(--color-charcoal);
+           line-height: 1.6;
+       }
+       .categories-list {
+           list-style: none;
+           padding: 0 0 15px 0;
+           margin-bottom: 15px;
+           border-bottom: 1px solid var(--border-color);
+       }
+       .categories-list li {
+           padding: 8px 0;
+           font-weight: 500;
+       }
+       .conclusion-text {
+           font-size: 15px;
+       }
+       .quote {
+           font-style: italic;
+           text-align: center;
+           margin-top: 20px;
+           margin-bottom: 0;
+           color: var(--primary-teal);
+           font-weight: 600;
+           animation: fadeInQuote 2s ease-in-out;
+       }
+
+       @keyframes fadeInQuote {
+           from { opacity: 0; transform: translateY(10px); }
+           to { opacity: 1; transform: translateY(0); }
+       }
     </style>
 </head>
 <body>
@@ -737,6 +778,19 @@
                 <ul id="criteria-scores-list" style="text-align: left; margin-top: 20px; list-style: none; padding: 0;"></ul>
                 <button type="button" id="reset-btn" class="btn btn-primary" style="margin-top: 20px;">Évaluer à nouveau</button>
             </div>
+
+            <div class="success-details">
+               <p>Grâce à votre désignation, <strong class="dynamic-uni-name">[Nom de l’université]</strong> vient d’obtenir l’opportunité de concourir dans les catégories :</p>
+               <ul class="categories-list">
+                   <li>🏆 Excellence Académique</li>
+                   <li>💼 Meilleur Programme d’Insertion Professionnelle</li>
+                   <li>🏛️ Meilleure Infrastructure Académique</li>
+                   <li>🌍 Excellence d’Or</li>
+               </ul>
+               <p class="conclusion-text">🔔 Continuez à soutenir votre université ! Partagez le lien et invitez d’autres à voter.<br>Ensemble, faisons des Académie Excellence Awards un mouvement de reconnaissance et de valorisation du savoir.</p>
+               <p class="quote">« L’excellence, c’est ce que nous faisons, mais aussi ce que nous inspirons. »</p>
+           </div>
+
         </div>
     </div>
 
