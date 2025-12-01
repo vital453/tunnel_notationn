@@ -95,6 +95,7 @@
             gap: 25px;
             justify-items: center; /* Centre les éléments de la grille horizontalement */
             align-items: stretch; /* Assure que les éléments de la grille ont la même hauteur */
+             justify-content: center;
         }
         
         .distinction-card {
@@ -191,9 +192,36 @@
         .stars span { font-size: 28px; color: var(--border-color); cursor: pointer; transition: all 0.2s ease; }
         .stars span:hover { transform: scale(1.3); }
         .stars span.rated, .stars:hover span:hover, .stars:hover span:hover ~ span { color: var(--color-orange); text-shadow: 0 0 5px rgba(243, 156, 18, 0.5); }
-        .btn { border: none; padding: 14px 28px; font-size: 16px; font-weight: 600; border-radius: 8px; cursor: pointer; transition: all 0.3s ease; }
+        .btn { position: relative; border: none; padding: 14px 28px; font-size: 16px; font-weight: 600; border-radius: 8px; cursor: pointer; transition: all 0.3s ease; }
         .btn-primary { background-image: var(--primary-gradient); color: white; border: none; }
         .btn-primary:hover { transform: scale(1.05); box-shadow: 0 4px 20px rgba(0, 128, 128, 0.3); }
+        .btn .btn-text { transition: opacity 0.2s; }
+        .btn .loader {
+           position: absolute;
+           top: 50%;
+           left: 50%;
+           transform: translate(-50%, -50%);
+           width: 20px;
+           height: 20px;
+           border: 2px solid rgba(255,255,255,0.5);
+           border-top-color: var(--white-color);
+           border-radius: 50%;
+           animation: spin 1s linear infinite;
+           opacity: 0;
+           transition: opacity 0.2s;
+       }
+       .btn.loading .btn-text {
+           opacity: 0;
+       }
+       .btn.loading .loader {
+           opacity: 1;
+       }
+       .btn.loading {
+           pointer-events: none;
+       }
+       @keyframes spin {
+           to { transform: translate(-50%, -50%) rotate(360deg); }
+       }
         .search-bar { margin-bottom: 30px; position: relative; }
         #search-input { width: 100%; padding: 15px 20px 15px 45px; border-radius: 8px; border: 1px solid var(--border-color); font-size: 16px; }
         .search-bar i { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: var(--grey-color); }
@@ -688,7 +716,10 @@
                     </div>
                     <div class="actions">
                         <button type="button" id="back-btn" class="btn btn-secondary">Changer d'institution</button>
-                        <button type="submit" class="btn btn-primary">Soumettre mon évaluation</button>
+                        <button type="submit" class="btn btn-primary">
+                           <span class="btn-text">Soumettre mon évaluation</span>
+                           <div class="loader"></div>
+                       </button>
                     </div>
                 </form>
             </main>
@@ -704,6 +735,7 @@
                 <div id="vote-count-display" class="vote-count"></div>
                 <small>(Ce score évolue en fonction des votes du public et des évaluations validées.)</small>
                 <ul id="criteria-scores-list" style="text-align: left; margin-top: 20px; list-style: none; padding: 0;"></ul>
+                <button type="button" id="reset-btn" class="btn btn-primary" style="margin-top: 20px;">Évaluer à nouveau</button>
             </div>
         </div>
     </div>
@@ -861,6 +893,7 @@
         const dynamicScoreElement = document.getElementById('dynamic-score');
         const dynamicUniNameSpans = document.querySelectorAll('.dynamic-uni-name');
         const voteCountDisplay = document.getElementById('vote-count-display');
+       const resetBtn = document.getElementById('reset-btn');
         
         // MODIFICATION : Références à la nouvelle modale et à son lien de déclenchement
         // APRÈS
@@ -971,6 +1004,8 @@ const showCriteriaLinks = document.querySelectorAll('.show-criteria-link'); // O
                 alert('Veuillez noter toutes les distinctions avant de soumettre.');
                 return;
             }
+            const submitBtn = ratingForm.querySelector('button[type="submit"]');
+            submitBtn.classList.add('loading');
             
             const comment = document.getElementById('comment-input').value.trim();
             const payload = {
@@ -992,6 +1027,8 @@ const showCriteriaLinks = document.querySelectorAll('.show-criteria-link'); // O
             } catch (error) {
                 console.error(error);
                 alert("Une erreur est survenue. Votre vote n'a pas pu être enregistré.");
+            } finally {
+               submitBtn.classList.remove('loading');
             }
         });
 
@@ -1067,6 +1104,13 @@ showCriteriaLinks.forEach(link => {
         prestigeModal.classList.add('active');
     });
 });
+ resetBtn.addEventListener('click', () => {
+           ratingForm.reset();
+           ratings = {};
+           document.querySelectorAll('.stars span').forEach(s => s.classList.remove('rated'));
+           document.getElementById('comment-input').value = '';
+           goToStep(1);
+       });
 
         async function loadInstitutions() {
             try {
