@@ -567,8 +567,9 @@
             }
 
             .institutions-grid {
-                grid-template-columns: 1fr; /* Une seule colonne pour les institutions */
-                max-height: 300px;
+                grid-template-columns: repeat(2, 1fr); /* Deux colonnes pour les institutions sur mobile */
+                gap: 12px;
+                max-height: 400px;
             }
 
             .institution-card {
@@ -1182,7 +1183,7 @@ showCriteriaLinks.forEach(link => {
         renderCriteria();
         
         // MODIFICATION : Afficher la modale de prestige au chargement de la page
-        prestigeModal.classList.add('active');
+        // prestigeModal.classList.add('active');
     });
     </script>
     <script>
