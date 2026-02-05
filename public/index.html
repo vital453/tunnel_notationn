@@ -1053,8 +1053,18 @@ const showCriteriaLinks = document.querySelectorAll('.show-criteria-link'); // O
             }
         });
 
+        const MAX_VOTES = 3;
+
         ratingForm.addEventListener('submit', async e => {
             e.preventDefault();
+            
+            // 1. Vérification Client (LocalStorage)
+            let localVoteCount = parseInt(localStorage.getItem('actiiva_vote_count') || '0');
+            if (localVoteCount >= MAX_VOTES) {
+                alert('Vous avez atteint la limite de 3 évaluations autorisées.');
+                return;
+            }
+
             if (Object.keys(ratings).length < Object.keys(criteria).length) {
                 alert('Veuillez noter toutes les distinctions avant de soumettre.');
                 return;
@@ -1070,18 +1080,32 @@ const showCriteriaLinks = document.querySelectorAll('.show-criteria-link'); // O
             };
 
             try {
-                const response = await fetch('https://backend.actiiva.org/submit_rating.php', {
+                const response = await fetch('https://backend.activa.org/submit_rating.php', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(payload)
                 });
-                if (!response.ok) throw new Error('Erreur lors de la soumission de votre vote.');
+
                 const result = await response.json();
+
+                if (!response.ok) {
+                    // Si le backend renvoie une erreur (ex: limite IP atteinte 403)
+                    if (response.status === 403) {
+                         // On met à jour le localStorage au cas où il serait désynchronisé
+                         localStorage.setItem('actiiva_vote_count', MAX_VOTES);
+                         throw new Error(result.error || 'Limite de votes atteinte.');
+                    }
+                    throw new Error(result.error || 'Erreur lors de la soumission de votre vote.');
+                }
+
+                // Succès
+                localStorage.setItem('actiiva_vote_count', localVoteCount + 1);
+                
                 goToStep(3);
                 displayResults(result.scores);
             } catch (error) {
                 console.error(error);
-                alert("Une erreur est survenue. Votre vote n'a pas pu être enregistré.");
+                alert(error.message);
             } finally {
                submitBtn.classList.remove('loading');
             }

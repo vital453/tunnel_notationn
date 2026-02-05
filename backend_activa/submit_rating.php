@@ -62,9 +62,28 @@ try {
         throw new Exception("Université non trouvée.");
     }
 
+    // --- VERIFICATION DU NOMBRE DE VOTES PAR IP ---
+    $ip_address = $_SERVER['REMOTE_ADDR'];
+
+    // On compte le nombre TOTAL de lignes insérées paret IP
+    // (1 vote complet = 5 lignes de critères)
+    $stmt_check_ip = $pdo->prepare("SELECT COUNT(*) FROM ratings WHERE ip_address = ?");
+    $stmt_check_ip->execute([$ip_address]);
+    $total_entries = $stmt_check_ip->fetchColumn();
+
+    // Limite = 3 votes * 5 critères = 15 entrées
+    $limit_entries = 3 * count($criteria_labels);
+
+    if ($total_entries >= $limit_entries) {
+        http_response_code(403);
+        echo json_encode(['error' => 'Vous avez atteint la limite de 3 évaluations autorisées.']);
+        exit();
+    }
+    // ----------------------------------------------
+
     // On enregistre les 5 nouvelles notes et le commentaire
     $pdo->beginTransaction();
-    $sql = "INSERT INTO ratings (institution_id, criterion_key, rating_value, comment) VALUES (:institution_id, :criterion_key, :rating_value, :comment)";
+    $sql = "INSERT INTO ratings (institution_id, criterion_key, rating_value, comment, ip_address) VALUES (:institution_id, :criterion_key, :rating_value, :comment, :ip_address)";
     $stmt = $pdo->prepare($sql);
 
     // On insère le commentaire une seule fois, avec le premier critère, pour éviter la redondance
@@ -75,7 +94,8 @@ try {
             'institution_id' => $institution_id,
             'criterion_key' => $key,
             'rating_value' => $value,
-            'comment' => $current_comment
+            'comment' => $current_comment,
+            'ip_address' => $ip_address
         ]);
         $isFirst = false;
     }
